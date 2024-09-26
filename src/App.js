@@ -4,14 +4,14 @@ import ufc from './assests/ufc.png';
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [groupBy, setGroupBy] = useState('event'); // State to handle grouping
-  const [selectedProps, setSelectedProps] = useState({}); // State to store selected props (Over/Under)
+  const [groupBy, setGroupBy] = useState('event'); 
+  const [selectedProps, setSelectedProps] = useState({}); 
 
   useEffect(() => {
-    setData(Object.values(storedData.data.data)); // Assuming the data is stored in the 'data' key
+    setData(Object.values(storedData.data.data)); 
   }, []);
 
-  // Function to handle prop selection
+ 
   const handlePropSelection = (playerId, choiceAbbr) => {
     setSelectedProps(prevState => ({
       ...prevState,
@@ -19,9 +19,9 @@ const App = () => {
     }));
   };
 
-  // Check if data is valid before grouping
+  
   const groupedData = groupBy === 'event'
-    ? (Array.isArray(data) ? data : []) // If data is not an array, fallback to an empty array
+    ? (Array.isArray(data) ? data : []) 
     : Object.values(
         data.reduce((acc, prop) => {
           prop.players.forEach(player => {
@@ -40,7 +40,7 @@ const App = () => {
   return (
     <div className="flex flex-col bg-gray-800" style={{ backgroundColor: '#1B1F2D' }}>
       <div className="flex justify-between mb-4 mx-5 sm:mx-10 my-5">
-        {/* Grouping Buttons */}
+      
         <button
           className={`px-4 py-2 text-white ${groupBy === 'event' ? 'bg-transparent text-red-600 border border-white' : 'bg-gray-500'}`}
           onClick={() => setGroupBy('event')}
@@ -55,7 +55,7 @@ const App = () => {
         </button>
       </div>
 
-      {/* Check if groupedData is an array */}
+   
       {Array.isArray(groupedData) && groupedData.length > 0 ? (
         groupedData.map((info, index) => {
           const isGroupedByPlayer = groupBy === 'player';
@@ -72,7 +72,7 @@ const App = () => {
                       <span>{prop.event.name}</span>
                       <span>{prop.bidStats.name}: {prop.bidStats.value}</span>
                       <div className='border-2 border-blue-500 rounded-full text-blue-500 overflow-hidden'>
-                        {/* Disable buttons based on selected prop */}
+                      
                         <button
                           className={`px-4 py-1 mr-2 ${selectedProps[info.id] === 'O' ? 'bg-gray-500 text-white' : 'bg-transparent'}`}
                           onClick={() => handlePropSelection(info.id, 'O')}
